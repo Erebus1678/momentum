@@ -3,6 +3,12 @@ const time = document.querySelector('.time');
 const dataTime = document.querySelector('.date');
 const greeting = document.querySelector('.greeting')
 const name = document.querySelector('.name')
+const body = document.querySelector('body')
+const timeOfDay = getTimeOfDay();
+let randomNum = getRandomNum().toFixed();
+const prevBtn = document.querySelector('.slide-prev')
+const nextBtn = document.querySelector('.slide-next')
+// ==================================
 
 function getLocalStorage() {
     if (localStorage.getItem('name')) {
@@ -10,6 +16,12 @@ function getLocalStorage() {
     }
 }
 window.addEventListener('load', getLocalStorage)
+// ===================================
+function getRandomNum() {
+    let result = Math.random() * (20 - 1) + 1;
+    return result
+}
+
 
 function showDate() {
     const date = new Date();
@@ -22,28 +34,33 @@ function showDate() {
 function getTimeOfDay() {
     const date = new Date();
     const hours = date.getHours();
-    if (hours > 17 && 21 > hours) {
-        return 'evening'
-    } else if (hours > 2 && 12 > hours) {
+    if (hours >= 6 && 12 > hours) {
         return 'morning'
-    } else if (12 > hours && 14 > hours) {
-        return 'noon'
-    }
-    else if (hours > 14 && hours < 17) {
+    } else if (hours >= 12 && 18 > hours) {
         return 'afternoon'
-    }
-    else {
-        return ' night'
+    } else if (hours >= 18 && 21 > hours) {
+        return 'evening'
+    } else {
+        return 'night'
     }
 }
-const timeOfDay = getTimeOfDay();
+
+
 function showGreeting() {
     greeting.textContent = `Good ${timeOfDay},`;
 }
 
 
 
+function setBg() {
+    let bgNum = randomNum.padStart(2, '0')
+    const timeOfDay = getTimeOfDay();
+    body.style.backgroundImage = `url('https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg')`;
+}
 
+setBg()
+
+// clock 
 function showTime() {
     const date = new Date();
     const currentTime = date.toLocaleTimeString();
@@ -54,6 +71,7 @@ function showTime() {
 };
 showTime();
 
+// before close window set 'name' to local storage
 function setLocalStorage() {
     localStorage.setItem('name', name.value);
 }
