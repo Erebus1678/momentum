@@ -86,6 +86,7 @@ function setBg() {
 }
 setBg()
 
+// weather
 async function getWeather() {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=ru&appid=368708a88709681503b2359b93906325&units=metric`;
     const res = await fetch(url);
@@ -95,13 +96,11 @@ async function getWeather() {
     temperature.textContent = `${data.main.temp}°C`;
     weatherDescription.textContent = data.weather[0].description;
 }
-
 function setCity(event) {
     if (event.code === 'Enter') {
         getWeather();
     }
 }
-
 document.addEventListener('DOMContentLoaded', getWeather);
 city.addEventListener('keypress', setCity);
 
