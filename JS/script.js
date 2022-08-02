@@ -8,6 +8,10 @@ const timeOfDay = getTimeOfDay();
 let randomNum;
 const prevBtn = document.querySelector('.slide-prev')
 const nextBtn = document.querySelector('.slide-next')
+const weatherIcon = document.querySelector('.weather-icon');
+const temperature = document.querySelector('.temperature');
+const weatherDescription = document.querySelector('.weather-description');
+const city = document.querySelector('.city');
 // ==================================
 
 function getLocalStorage() {
@@ -50,7 +54,6 @@ function getRandomNum(max, min) {
 }
 
 randomNum = getRandomNum(20, 1)
-console.log(typeof (randomNum))
 function getSlideNext() {
     randomNum = randomNum + 1
     if (randomNum === 21) {
@@ -82,6 +85,27 @@ function setBg() {
     img.onload = () => body.style.backgroundImage = `url('https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg')`;
 }
 setBg()
+
+async function getWeather() {
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=ru&appid=368708a88709681503b2359b93906325&units=metric`;
+    const res = await fetch(url);
+    const data = await res.json();
+    weatherIcon.className = 'weather-icon owf';
+    weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+    temperature.textContent = `${data.main.temp}°C`;
+    weatherDescription.textContent = data.weather[0].description;
+}
+
+function setCity(event) {
+    if (event.code === 'Enter') {
+        getWeather();
+    }
+}
+
+document.addEventListener('DOMContentLoaded', getWeather);
+city.addEventListener('keypress', setCity);
+
+
 
 // clock 
 function showTime() {
