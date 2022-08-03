@@ -18,6 +18,9 @@ function getLocalStorage() {
     if (localStorage.getItem('name')) {
         name.value = localStorage.getItem('name');
     }
+    if (localStorage.getItem('city')) {
+        city.value = localStorage.getItem('city')
+    }
 }
 window.addEventListener('load', getLocalStorage)
 // ===================================
@@ -88,7 +91,7 @@ setBg()
 
 // weather
 async function getWeather() {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=ru&appid=368708a88709681503b2359b93906325&units=metric`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&lang=eng&appid=368708a88709681503b2359b93906325&units=metric`;
     const res = await fetch(url);
     const data = await res.json();
     weatherIcon.className = 'weather-icon owf';
@@ -120,5 +123,6 @@ showTime();
 // before close window set 'name' to local storage
 function setLocalStorage() {
     localStorage.setItem('name', name.value);
+    localStorage.setItem('city', city.value)
 }
 window.addEventListener('beforeunload', setLocalStorage)
