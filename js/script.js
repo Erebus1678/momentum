@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', getWeather);
 city.addEventListener('keypress', setCity);
 
 async function getQuotes() {
-    const quotes = '/assets/quotes/data.json'
+    const quotes = './assets/quotes/data.json'
     const res = await fetch(quotes);
     const data = await res.json();
     randomNum = getRandomNum(0, 4).toFixed()
