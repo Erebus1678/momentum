@@ -12,6 +12,9 @@ const weatherIcon = document.querySelector('.weather-icon');
 const temperature = document.querySelector('.temperature');
 const weatherDescription = document.querySelector('.weather-description');
 const city = document.querySelector('.city');
+const quote = document.querySelector('.quote');
+const quoteAuthor = document.querySelector('.author');
+const changeQuoteBtn = document.querySelector('.change-quote')
 // ==================================
 
 function getLocalStorage() {
@@ -107,8 +110,16 @@ function setCity(event) {
 document.addEventListener('DOMContentLoaded', getWeather);
 city.addEventListener('keypress', setCity);
 
-
-
+async function getQuotes() {
+    const quotes = '/assets/quotes/data.json'
+    const res = await fetch(quotes);
+    const data = await res.json();
+    randomNum = getRandomNum(0, 4).toFixed()
+    quote.textContent = data[randomNum].text
+    quoteAuthor.textContent = data[randomNum].author
+}
+getQuotes();
+changeQuoteBtn.addEventListener('click', getQuotes);
 // clock 
 function showTime() {
     const date = new Date();

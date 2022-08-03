@@ -9,4 +9,4 @@ The application consists of six functional blocks:
 - [x] Image Slider
 - [x] Weather widget
 - [ ] Audio player
-- [ ] Quote of the day widget
+- [x] Quote of the day widget
