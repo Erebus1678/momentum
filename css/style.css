@@ -19,7 +19,9 @@ body {
   text-align: center;
   background: rgba(0, 0, 0, 0.142);
   background-blend-mode: multiply;
+  background-repeat: no-repeat;
   transition: background-image 1s ease-in-out;
+  background-size: 100% 100%;
 }
 
 .header {
