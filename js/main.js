@@ -11,6 +11,8 @@ const nextBtn = document.querySelector('.slide-next')
 const weatherIcon = document.querySelector('.weather-icon');
 const temperature = document.querySelector('.temperature');
 const weatherDescription = document.querySelector('.weather-description');
+const wind = document.querySelector('.wind')
+const humidity = document.querySelector('.humidity')
 const city = document.querySelector('.city');
 const quote = document.querySelector('.quote');
 const quoteAuthor = document.querySelector('.author');
@@ -60,31 +62,30 @@ function getRandomNum(max, min) {
 }
 
 randomNum = getRandomNum(20, 1)
+
 function getSlideNext() {
-    randomNum = randomNum + 1
+    randomNum = (+randomNum) + 1;
     if (randomNum === 21) {
         randomNum = 1
     }
-
     setBg()
 }
 
 function getSlidePrev() {
-    randomNum = randomNum - 1
+    randomNum = (+randomNum) - 1;
     if (randomNum === 0) {
         randomNum = 20
     }
-
+    console.log(randomNum);
     setBg()
 }
-
 
 nextBtn.addEventListener('click', getSlideNext)
 prevBtn.addEventListener('click', getSlidePrev)
 
 
 function setBg() {
-    let bgNum = randomNum.toFixed().padStart(2, '0');
+    let bgNum = (+randomNum).toFixed().padStart(2, '0');
     const timeOfDay = getTimeOfDay();
     const img = new Image();
     img.src = `https://raw.githubusercontent.com/rolling-scopes-school/stage1-tasks/assets/images/${timeOfDay}/${bgNum}.jpg`;
@@ -100,7 +101,9 @@ async function getWeather() {
     weatherIcon.className = 'weather-icon owf';
     weatherIcon.classList.add(`owf-${data.weather[0].id}`);
     temperature.textContent = `${data.main.temp}°C`;
-    weatherDescription.textContent = data.weather[0].description;
+    weatherDescription.textContent = `Feels like: ${data.main.feels_like}°C ${data.weather[0].description} `;
+    wind.textContent = `Wind speed - ${data.wind.speed} m/s`
+    humidity.textContent = `Humidity : ${data.main.humidity}%`
 }
 function setCity(event) {
     if (event.code === 'Enter') {
